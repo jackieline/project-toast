@@ -5,6 +5,18 @@ export const ToastContext = React.createContext();
 const ToastProvider = ({children}) => {
     const [toasts, setToasts] = React.useState([]);
 
+    React.useEffect(() => {
+        const handleKeyDown = (event) => {
+          if(event.key === "Escape") {
+            setToasts([]);
+          }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return() => {
+          window.removeEventListener('keydown', handleKeyDown);
+        }
+      }, []);
+
     const addToast = (message, variant) => {
         const nextToasts = [
             ...toasts,
@@ -22,7 +34,7 @@ const ToastProvider = ({children}) => {
     }
 
     return (
-        <ToastContext.Provider value={{toasts, addToast, dismissToast}}>
+        <ToastContext.Provider value={{ toasts, addToast, dismissToast }}>
             {children}
         </ToastContext.Provider>
     );

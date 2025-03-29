@@ -11,7 +11,7 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState('');
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
 
-  const {addToast} = React.useContext(ToastContext);
+  const { addToast } = React.useContext(ToastContext);
 
   const onChangeVariant = (event) => {
     setVariant(event.target.value);
@@ -23,7 +23,7 @@ function ToastPlayground() {
 
   const onButtonSubmit = (event) => {
     event.preventDefault();
-    addToast(message, variant);
+    addToast(message.trim(), variant);
     setMessage('');
     setVariant(VARIANT_OPTIONS[0]);
   }
